@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message for You, riyaa 💖</title>
+    <!-- Google Fonts & Canvas Confetti -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Container for Pages */
+        .card-container {
+            width: 100%;
+            max-width: 420px;
+            height: 85vh;
+            max-height: 650px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Page styling */
+        .page {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography & Emojis */
+        h1 {
+            font-size: 1.6rem;
+            color: #d63384;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .big-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-7px);}
+        }
+
+        /* Buttons & Interactions */
+        .btn {
+            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: transform 0.2s, background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        /* Interactive Box / Tap Here Box */
+        .interactive-box {
+            background: #fff;
+            border: 2px dashed #ff416c;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 15px 0;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .interactive-box:hover {
+            background: #fff0f3;
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #ff416c;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        /* Floating background elements */
+        .floating-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.4; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Background Emojis -->
+    <div class="floating-bg" id="floatingBg"></div>
+
+    <div class="card-container">
+        
+        <!-- PAGE 1: Welcome / Intro -->
+        <div class="page active" id="page-1">
+            <div class="big-emoji">🥺</div>
+            <h1>Hey riyaaa...</h1>
+            <p>I made something special just for you because some things are too important to keep unsaid. 💌</p>
+            <div class="interactive-box" onclick="nextPage()">
+                <p style="margin: 0; color: #ff416c; font-weight: 600;">👇 Tap Here to Open It</p>
+            </div>
+        </div>
+
+        <!-- PAGE 2: The Apology -->
+        <div class="page" id="page-2">
+            <div class="big-emoji">🙇‍♂️</div>
+            <h1>I Am Truly Sorry</h1>
+            <p>I know I messed up, and seeing you upset breaks my heart. You mean way too much to me for me to not make things right. 💔</p>
+            <button class="btn" onclick="nextPage()">Next ➡️</button>
+        </div>
+
+        <!-- PAGE 3: Why You Matter -->
+        <div class="page" id="page-3">
+            <div class="big-emoji">✨</div>
+            <h1>You Are Special</h1>
+            <p>Riyaaa, your smile lights up everything around you, and my days just aren't the same when things are awkward between us. 🌸</p>
+            <button class="btn" onclick="nextPage()">Next ➡️</button>
+        </div>
+
+        <!-- PAGE 4: Interactive Check -->
+        <div class="page" id="page-4">
+            <div class="big-emoji">🧸</div>
+            <h1>Quick Question...</h1>
+            <p>Can you ever find it in your heart to forgive me and give me a second chance? 🥺</p>
+            <button class="btn" onclick="nextPage()" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);">Yes, of course! ❤️</button>
+            <button class="btn btn-secondary" onclick="moveNoButton()" id="noBtn" style="position: relative;">No 🙈</button>
+        </div>
+
+        <!-- PAGE 5: Final Celebration / Forgiven -->
+        <div class="page" id="page-5">
+            <div class="big-emoji">🎉</div>
+            <h1>Yay! Thank You!</h1>
+            <p>Thank you for being so understanding, Riyaaa! I promise to always put a smile on your face from now on. 🥰💖</p>
+            <button class="btn" onclick="triggerConfetti()">Celebrate! 🎊</button>
+        </div>
+
+        <!-- Navigation Progress Dots -->
+        <div class="nav-dots" id="navDots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 5;
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                document.getElementById(`page-${currentPage}`).classList.remove('active');
+                currentPage++;
+                document.getElementById(`page-${currentPage}`).classList.add('active');
+                updateDots();
+
+                // Automatically trigger confetti if reaching the last page
+                if (currentPage === totalPages) {
+                    triggerConfetti();
+                }
+            }
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index + 1 === currentPage) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Fun playful dodge for the "No" button on page 4
+        function moveNoButton() {
+            const x = Math.random() * 120 - 60;
+            const y = Math.random() * 60 - 30;
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        // Confetti animation using canvas-confetti library
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        // Generate dynamic floating emojis in the background
+        const emojis = ['💖', '🌸', '🧸', '✨', '💌', '🥺', '💫', '🌷'];
+        const bgContainer = document.getElementById('floatingBg');
+
+        for (let i = 0; i < 15; i++) {
+            let span = document.createElement('span');
+            span.className = 'floating-emoji';
+            span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.top = Math.random() * 100 + 'vh';
+            span.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            span.style.animationDelay = (Math.random() * 5) + 's';
+            bgContainer.appendChild(span);
+        }
+    </script>
+</body>
+</html>
